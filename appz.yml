@@ -19,13 +19,18 @@ deploy:
     - 5432
     
 volumes:
-  - claim: postgres-master-data
+  - claim: vault-home
+    class: openebs-replicated
+    matchLabels: false
+    mount: /appz/home
+    name: home
+    size: 5Gi
+  - claim: vault-data
     class: openebs-replicated
     matchLabels: false
     mount: /appz/data
     name: data
-    size: 5Gi
-    mode: ReadWriteOnce   
+    size: 5Gi   
     
 properties:
     POSTGRESQL_REPLICATION_MODE: master
